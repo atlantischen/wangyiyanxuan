@@ -11,7 +11,13 @@
     <div class="content">
       <div class="tab">
         <div class="tabLeft">
-          <van-tabs line-width="50" scrollspy sticky :border="false" activeNames>
+          <van-tabs
+            line-width="50"
+            scrollspy
+            sticky
+            :border="false"
+            activeNames
+          >
             <van-tab v-for="index in tabList" :title="index" :key="index">
             </van-tab>
           </van-tabs>
@@ -102,13 +108,34 @@
           </li>
         </ul>
       </div>
+      <div class="tablist">
+        <ul class="tabUl">
+          <li class="tabLi" v-for="(list,index) in tablist" :key="index">
+            <a href="">
+              <div class="tabImg">
+                <img
+                  :src="list.picUrl"
+                  :alt="list.text"
+                />
+              </div>
+              <span>{{list.text}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="BigPromotion">
+        <div class="BigPromotionTop"></div>
+        <div class="BigPromotionBottom"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
 import Vue from "vue";
+import {mapState} from 'vuex'
 import Swiper from "swiper";
+
 // 引入Swiper的样式
 import "swiper/css/swiper.css";
 import { Collapse, CollapseItem, Icon, Tab, Tabs } from "vant";
@@ -141,6 +168,9 @@ export default {
       this.showPull = !this.showPull;
     }
   },
+  computed: {
+    ...mapState(['tablist'])
+  },
   mounted() {
     new Swiper(".swiper-container", {
       loop: true, // 循环模式选项
@@ -150,6 +180,7 @@ export default {
         // type:'custom'
       }
     });
+    this.$store.dispatch("getTabList");
   }
 };
 </script>
@@ -176,7 +207,7 @@ export default {
     border-radius .10667rem
     color #666;
     .icon-sousuo
-     
+
       vertical-align middle
       margin-right .13333rem
   .login
@@ -252,7 +283,7 @@ export default {
     li
       flex 1
       float left
-      a 
+      a
         height .6rem
         display inline-block
         align-items center
@@ -274,10 +305,36 @@ export default {
           background-image url('https://yanxuan.nosdn.127.net/eb61ee48e8942dbd1784c9ee75ebe955.png')
           background-size 100% 100%
         span
-          font-size .3rem 
+          font-size .3rem
           margin-left .10667rem
           color #333
           line-height .42667rem
           font-family PingFangSC-Light,helvetica,'Heiti SC';
-          
+
+
+.tablist
+  width 100%
+  .tabUl
+    width 100%
+    display flex
+    flex-wrap wrap
+    .tabLi a
+      display flex
+      flex-direction column
+      width 1.46667rem
+      height 2.08rem
+      margin .13333rem .26667rem 0
+      .tabImg
+        width 1.46667rem
+        height  1.46667rem
+        & img
+          width 1.46667rem
+          height  1.46667rem
+      & span
+        margin-top .13333rem
+        text-align center
+        font-size .32rem
+        line-height .48rem
+        color #333333
+        white-space nowrap
 </style>
