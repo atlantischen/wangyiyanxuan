@@ -1,4 +1,3 @@
-
 export default [{
     path: "/home",
     component: () => import("../pages/Home/Home.vue"),
@@ -32,6 +31,14 @@ export default [{
     path: "/profile",
     component: () => import("../pages/Profile/Profile.vue")
   },
+  {
+    path: "/login",
+    component: () => import("../pages/Login/Login.vue")
+  },
+   {
+     path: "/search",
+     component: () => import("../pages/Search/Search.vue")
+   },
   {
     path: "/",
     redirect: "/home"

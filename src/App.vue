@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <ShopFooter/>
+    <ShopFooter v-show="$route.meta.isShowFooter"/>
   </div>
 </template>
 <script>
@@ -16,6 +16,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus" rel="stylesheet/stylus">
+  #app
+    height 100%
+      
 
 </style>
