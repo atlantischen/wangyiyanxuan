@@ -1,4 +1,7 @@
 export default {
     tablist:[],
-    categoryNav:[]
+    categoryNav:[],
+    policyDescList:{},
+    categoryHotSellModule:{},
+    flashSaleModule:{}
 }

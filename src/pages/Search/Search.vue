@@ -16,9 +16,7 @@
 <script type="text/javascript">
 
 export default {
-  name: "Search",
-  
- 
+  name: "Search"
   
 };
 </script>

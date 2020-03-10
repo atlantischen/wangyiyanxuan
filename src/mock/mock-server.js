@@ -3,11 +3,15 @@ import Mock from "mockjs";
 // 引入data数据
 import data from "./datas/index.json";
 import dataNav from './datas/cateNavDatas.json'
+import policyDescList from './datas/index.json'
+import categoryHotSellModule from './datas/index.json'
+import flashSaleModule from './datas/index.json'
 
 // 拦截地址,产生数据
 
-//接口地址:  '/goods'   '/ratings'   '/info'
-
 Mock.mock("/tablist", { code: 0, data: data.kingKongModule });
 Mock.mock("/cagetorynav", { code: 0, data: dataNav.categoryL1List});
+Mock.mock("/policyDescList", { code: 0, data: policyDescList.policyDescList});
+Mock.mock("/categoryHotSellModule", { code: 0, data: categoryHotSellModule.categoryHotSellModule});
+Mock.mock("/flashSaleModule", { code: 0,data: flashSaleModule.flashSaleModule});
 

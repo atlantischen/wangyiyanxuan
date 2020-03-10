@@ -1,6 +1,6 @@
 <template>
   <div>
-    值得买
+    值得买个屁！！！
   </div>
 </template>
 

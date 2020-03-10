@@ -1,2 +1,5 @@
 export const RECEIVE_TABLIST = 'receive_tablist'
 export const RECEIVE_CAGEGORYNAV = 'receive_categorynav'
+export const RECEIVE_POLICYDESCLIST = 'receive_policyDescList'
+export const RECEIVE_CATEGORYHOTSELLMODULE = 'receive_categoryHotSellModule'
+export const RECEIVE_FLASHSALEMODULE = 'receive_flashSaleModule'

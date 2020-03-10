@@ -11,3 +11,21 @@ export const reqCategoryNav = () => {
       url: '/cagetorynav',
     })
   }
+export const reqPolicyDescList = () => {
+  return axios({
+    method: 'GET',
+    url: '/policyDescList',
+  })
+}
+export const reqCategoryHotSellModule = () => {
+  return axios({
+    method: 'GET',
+    url: '/categoryHotSellModule',
+  })
+}
+export const reqFlashSaleModule = () => {
+  return axios({
+    method: 'GET',
+    url: '/flashSaleModule',
+  })
+}

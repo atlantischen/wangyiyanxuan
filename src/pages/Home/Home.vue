@@ -12,19 +12,20 @@
       <div class="home_content">
         <div class="tab">
           <div class="tabLeft">
-         
             <van-tabs :border="false" line-width="50">
               <van-tab v-for="index in tabList" :title="index" :key="index">
               </van-tab>
             </van-tabs>
           </div>
           <div class="tabRight">
-            <van-icon
-              class="arrow"
-              @click="isShow"
-              :name="showPull ? 'arrow-down' : 'arrow-up'"
-              size=".5rem"
-            />
+            <transition name="fade">
+              <van-icon
+                class="arrow"
+                @click="isShow"
+                :name="showPull ? 'arrow-down' : 'arrow-up'"
+                size=".5rem"
+              />
+            </transition>
           </div>
         </div>
         <div class="swiper">
@@ -84,22 +85,13 @@
         </div>
         <div class="indexServic">
           <ul class="g-grow">
-            <li>
+            <li v-for="(item, index) in policyDescList" :key="index">
               <a href="">
-                <i class="item1"></i>
-                <span>网易自营品牌</span>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="item2"></i>
-                <span>30天无忧退货</span>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <i class="item3"></i>
-                <span>48小时快速退款</span>
+                <i
+                  class="item1"
+                  :style="{ 'background-image': 'url(' + item.icon + ')' }"
+                ></i>
+                <span>{{ item.desc }}</span>
               </a>
             </li>
           </ul>
@@ -173,8 +165,8 @@
                     alt=""
                   />
                   <div class="price">
-                      <span class="price1">￥15.9</span>
-                      <span class="price2">￥17.9</span>
+                    <span class="price1">￥15.9</span>
+                    <span class="price2">￥17.9</span>
                   </div>
                 </div>
               </div>
@@ -186,19 +178,31 @@
           </div>
         </div>
         <div class="category">
-          <h2 class="category_header">类目热销榜</h2>
+          <h2 class="category_header">{{ categoryHotSellModule.title }}</h2>
           <div class="category_content">
-            <div class="content_top">
-              <div class="content_top_left" v-for="index in 2" :key="index">
-                <span class="left1">热销榜</span>
-                <img class="left2" src="https://yanxuan-item.nosdn.127.net/74662d24f6d217b520178c5a6d031457.png?quality=75&type=webp&imageView&thumbnail=200x200" alt="">
+            <div class="content_top" v-if="categoryHotSellModule.categoryList">
+              <div
+                class="content_top_left"
+                v-for="(item,
+                index) in categoryHotSellModule.categoryList.slice(1, 3)"
+                :key="index"
+              >
+                <span class="left1">{{ item.categoryName }}</span>
+                <img class="left2" :src="item.showPicUrl" alt="" />
               </div>
             </div>
-            <div class="content_bottom">
+            <div
+              class="content_bottom"
+              v-if="categoryHotSellModule.categoryList"
+            >
               <ul>
-                <li v-for="index in 8" :key="index">
-                  <span >居家生活榜</span>
-                  <img src="https://yanxuan-item.nosdn.127.net/644a27b8e168b8fe8e43ccaad934b24e.png?quality=75&type=webp&imageView&thumbnail=200x200" alt="">
+                <li
+                  v-for="(item,
+                  index) in categoryHotSellModule.categoryList.slice(2)"
+                  :key="index"
+                >
+                  <span>{{ item.categoryName }}</span>
+                  <img :src="item.showPicUrl" alt="" />
                 </li>
               </ul>
             </div>
@@ -215,12 +219,16 @@
             <span class="more">更多 &gt;</span>
           </div>
           <div class="module_content">
-            <div class="detail" v-for="index in 6" :key="index">
+            <div
+              class="detail"
+              v-for="(item, index) in flashSaleModule.itemList"
+              :key="index"
+            >
               <div class="detail_img">
-                <img src="https://yanxuan-item.nosdn.127.net/5dcf53ef74855d4f5f7c0554ce04a663.png?quality=75&type=webp&imageView&thumbnail=216x216" alt="">
+                <img :src="item.showPicUrl" alt="" />
               </div>
-              <span class="new_price">￥4899</span>
-              <span class="old_price">￥6999</span>
+              <span class="new_price">￥{{ item.activityPrice }}</span>
+              <span class="old_price">￥{{ item.originPrice }}</span>
             </div>
           </div>
         </div>
@@ -232,9 +240,14 @@
           <ul class="newItemMoudle_content">
             <li class="content_list" v-for="index in 6" :key="index">
               <div class="list_img">
-                 <img src="https://yanxuan-item.nosdn.127.net/7e338fd0d5679ad6f73e6f277f9edd95.png?type=webp&imageView&quality=65&thumbnail=330x330" alt="">
+                <img
+                  src="https://yanxuan-item.nosdn.127.net/7e338fd0d5679ad6f73e6f277f9edd95.png?type=webp&imageView&quality=65&thumbnail=330x330"
+                  alt=""
+                />
               </div>
-              <span class="newItemMoudle_dec">复工装备随声防护日本空气净化除菌卡</span>
+              <span class="newItemMoudle_dec"
+                >复工装备随声防护日本空气净化除菌卡</span
+              >
               <span class="newItemMoudle_price">￥79</span>
               <span class="newItemMoudle_discount">满99减10</span>
             </li>
@@ -246,8 +259,14 @@
               <span class="ShopGuideModule_title1">断货补单王</span>
               <span class="ShopGuideModule_title2">补仓疯狂中</span>
               <div class="ShopGuideModule_img">
-                <img src="https://yanxuan-item.nosdn.127.net/5e818e36e0cfd0bb474c57f27e76b46d.png?quality=75&type=webp&imageView&thumbnail=150x150" alt="">
-                <img src="https://yanxuan-item.nosdn.127.net/445689c4faa55f8186c500e68bff73d6.png?quality=75&type=webp&imageView&thumbnail=150x150" alt="">
+                <img
+                  src="https://yanxuan-item.nosdn.127.net/5e818e36e0cfd0bb474c57f27e76b46d.png?quality=75&type=webp&imageView&thumbnail=150x150"
+                  alt=""
+                />
+                <img
+                  src="https://yanxuan-item.nosdn.127.net/445689c4faa55f8186c500e68bff73d6.png?quality=75&type=webp&imageView&thumbnail=150x150"
+                  alt=""
+                />
               </div>
             </li>
           </ul>
@@ -260,7 +279,6 @@
           <span>网易公司版权所有 © 1997-2020</span>
           <span>食品经营许可证：JY13301080111719</span>
         </div>
-
       </div>
     </div>
   </div>
@@ -304,10 +322,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(["tablist"])
+    ...mapState(["tablist"]),
+    ...mapState(["policyDescList"]),
+    ...mapState(["categoryHotSellModule"]),
+    ...mapState(["flashSaleModule"])
   },
-  mounted() {
-     // 这里代码都注释
+  async mounted() {
+    // 这里代码都注释
     new Swiper(".swiper-container", {
       loop: true, // 循环模式选项
       autoplay: true,
@@ -316,14 +337,13 @@ export default {
         // type:'custom'
       }
     });
-     
-    this.$nextTick(()=>{
+    await this.$store.dispatch("getTabList");
+    await this.$store.dispatch("getPolicyDescList");
+    await this.$store.dispatch("getCategoryHotSellModule");
+    await this.$store.dispatch("getFlashSaleModule");
+    this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.wrapper, {});
-    })
-    this.$store.dispatch("getTabList"); 
-    
-  
-    
+    });
   }
 };
 </script>
@@ -332,7 +352,7 @@ export default {
 .menu-wrapper
   height 100%
   .container
-    background-color #EEEEEE 
+    background-color #EEEEEE
     width 100%
     .header
       display flex
@@ -382,6 +402,7 @@ export default {
           background-color #fff
           width 10%
           text-align center
+         
       .swiper
         width 100%
         height 5rem
@@ -414,7 +435,7 @@ export default {
               .item1
                 width .42667rem
                 height .42667rem
-                background-image url('https://yanxuan.nosdn.127.net/a03dd909803b9ac032eba58b7253a2f6.png')
+                // background-image url('https://yanxuan.nosdn.127.net/a03dd909803b9ac032eba58b7253a2f6.png')
                 background-size 100% 100%
               .item2
                 width .42667rem
@@ -588,12 +609,12 @@ export default {
                 flex-direction column
                 padding .26667rem 0 0 0.4rem
                 box-sizing border-box
-                .span1 
+                .span1
                   font-family PingFangSC-Medium
                   font-size .42667rem
                   margin .1rem 0
                 .span2
-                  color #7F7F7F 
+                  color #7F7F7F
                   font-size .32rem;
               .module_bottom
                 width 2.66667rem
@@ -623,7 +644,7 @@ export default {
                     text-decoration line-through
                 & img
                   width 2.66667rem
-                  height 2.66667rem 
+                  height 2.66667rem
             .inner_bottom
               background #FFECC2
               border-radius 4px
@@ -639,11 +660,11 @@ export default {
                 background #CBB693
                 border-radius .05333rem
                 color #fff
-                font-size .29333rem 
+                font-size .29333rem
                 padding .1rem
                 box-sizing border-box
                 margin-top .1rem
-              
+
       .category
         margin-bottom .2677rem
         .category_header
@@ -656,7 +677,7 @@ export default {
           overflow hidden
           font-size .42667rem
           font-family PingFangSC-Regular
-        .category_content 
+        .category_content
           padding 0 .26667rem .26667rem .4rem
           box-sizing border-box
           background-color #fff
@@ -686,12 +707,12 @@ export default {
                   height .05rem
                   background #333
 
-              .left2 
+              .left2
                 width 2.66667rem
-                height 2.66667rem 
+                height 2.66667rem
 
           .content_bottom
-            ul  
+            ul
               display flex
               flex 1
               flex-wrap wrap
@@ -710,7 +731,7 @@ export default {
                 font-size .32rem
                 color #333
                 font-family PingFangSC-Medium
-              & img  
+              & img
                 width 1.6rem
                 height 1.6rem
       .flashsSaleModule
@@ -739,15 +760,15 @@ export default {
             background-color #333
             border-radius .05333rem
             color #fff
-            margin 0 .13333rem; 
+            margin 0 .13333rem;
           .colon
-            font-size .37333rem  
+            font-size .37333rem
           .more
             position absolute
             right 0
             font-size .37333rem
             color #333
-            line-height 1.33333rem  
+            line-height 1.33333rem
 
         .module_content
           display flex
@@ -759,7 +780,7 @@ export default {
             // margin-right .26667rem
             // padding-bottom .4rem
             flex-basis 30%
-            .detail_img 
+            .detail_img
               background-color #EEEE
               & img
                 width 2.88rem
@@ -771,7 +792,7 @@ export default {
             .old_price
               font-size .32rem
               color #7F7F7F
-              text-decoration line-through      
+              text-decoration line-through
       .newItemMoudle
         margin-bottom .26667rem
         .newItemMoudle_title
@@ -877,12 +898,9 @@ export default {
           // margin-left .6rem
         .download
           margin-right .6rem
-          
+
         & span
           font-size .32rem
           line-height .42667rem
           color #999
-
-
-
 </style>

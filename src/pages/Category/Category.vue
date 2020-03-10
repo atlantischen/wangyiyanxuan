@@ -63,8 +63,6 @@ export default {
   methods: {
     currentIndex(index){
       this.index = index
-      console.log(this.index)
-    
     }
   }
 };
