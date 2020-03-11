@@ -18,14 +18,23 @@
             </van-tabs>
           </div>
           <div class="tabRight">
-            <transition name="fade">
-              <van-icon
-                class="arrow"
-                @click="isShow"
-                :name="showPull ? 'arrow-down' : 'arrow-up'"
-                size=".5rem"
-              />
-            </transition>
+            <van-icon
+              class="arrow"
+              @click="isShow=true"
+              :name="isShow ? 'arrow-up' : 'arrow-down'"
+              size=".5rem"
+            />
+            <van-overlay class="overlay" :show="isShow" @click="isShow = false">
+                <div class="toogleWrap">
+                  <div class="toogleWrap_header">
+                    <span>全部频道</span>
+                    <van-icon name="arrow-up" />
+                  </div>
+                  <ul class="toogleWrap_ul">
+                    <li class="toogleWrap_item" v-for="(item,index) in tabList" :key="index">{{item}}</li>
+                  </ul>
+                </div>
+            </van-overlay>
           </div>
         </div>
         <div class="swiper">
@@ -291,16 +300,11 @@ import Swiper from "swiper";
 import BScroll from "better-scroll";
 // 引入Swiper的样式
 import "swiper/css/swiper.css";
-import { Collapse, CollapseItem, Icon, Tab, Tabs } from "vant";
-Vue.use(Collapse)
-  .use(CollapseItem)
-  .use(Icon);
-Vue.use(Tab);
-Vue.use(Tabs);
+import { Collapse, CollapseItem, Icon, Tab, Tabs,Overlay } from "vant";
+Vue.use(Collapse).use(CollapseItem).use(Icon).use(Overlay).use(Tab).use(Tabs);
 export default {
   data() {
     return {
-      // activeNames: [""],
       tabList: [
         "推荐",
         "居家生活",
@@ -313,13 +317,13 @@ export default {
         "全球特色"
       ],
       border: false,
-      showPull: true
+      isShow:false
     };
   },
   methods: {
-    isShow() {
-      this.showPull = !this.showPull;
-    }
+    // isShow() {
+    //   this.showPull = !this.showPull;
+    // }
   },
   computed: {
     ...mapState(["tablist"]),
@@ -354,11 +358,14 @@ export default {
   .container
     background-color #EEEEEE
     width 100%
+    font-family PingFangSC-Light,helvetica,'Heiti SC'
     .header
       display flex
       align-items center
       background-color #fff
       padding .21333rem .4rem
+      z-index 3
+      position relative
       .logo
         background-image url('//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png?imageView&type=webp')
         background-size: cover
@@ -376,11 +383,9 @@ export default {
         border-radius .10667rem
         color #666;
         .icon-sousuo
-
           vertical-align middle
           margin-right .13333rem
       .login
-
         width .98667rem
         height  .53333rem
         line-height .53333rem
@@ -402,7 +407,37 @@ export default {
           background-color #fff
           width 10%
           text-align center
-         
+          .overlay
+            z-index 2
+            .toogleWrap
+              width 100%
+              box-sizing border-box
+              background-color #fff
+              position fixed
+              top 1.18rem
+              left 0
+              padding 0 .4rem
+              font-size .37333rem
+              .toogleWrap_header
+                height 43.9px
+                display flex
+                justify-content space-between
+                align-items center
+            .toogleWrap_ul
+              display flex
+              flex-wrap wrap
+              justify-content space-between
+              .toogleWrap_item
+                width 2rem
+                margin-bottom .53333rem
+                height .74667rem
+                border 1px solid #ccc
+                color #333
+                line-height .74667rem
+                text-align center
+                border-radius .05333rem
+
+
       .swiper
         width 100%
         height 5rem
@@ -435,17 +470,6 @@ export default {
               .item1
                 width .42667rem
                 height .42667rem
-                // background-image url('https://yanxuan.nosdn.127.net/a03dd909803b9ac032eba58b7253a2f6.png')
-                background-size 100% 100%
-              .item2
-                width .42667rem
-                height .42667rem
-                background-image url('https://yanxuan.nosdn.127.net/2d0402ffcd52b3ec3b07422681c42a89.png')
-                background-size 100% 100%
-              .item3
-                width .42667rem
-                height .42667rem
-                background-image url('https://yanxuan.nosdn.127.net/eb61ee48e8942dbd1784c9ee75ebe955.png')
                 background-size 100% 100%
               span
                 font-size .3rem
@@ -454,8 +478,6 @@ export default {
                 line-height .42667rem
                 font-family PingFangSC-Light,helvetica,'Heiti SC';
                 white-space: nowrap
-
-
       .tablist
         width 100%
         background-color #fff

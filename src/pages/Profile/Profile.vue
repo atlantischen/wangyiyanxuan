@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="profile_container">
     <div class="header">
       <i class="iconfont icon-Homehomepagemenu" @click="$router.push('/home')"></i>
       <div class="header_img">
@@ -15,9 +15,9 @@
         <img src="https://yanxuan.nosdn.127.net/39c5e4583753d4c3cb868a64c2c109ea.png" alt="">
       </div>
       <div class="btnWrap">
-        <div class="phone_btn">
+        <div class="phone_btn" @click="$router.push('/login')">
           <i class="iconfont icon-shouji"></i>
-          <span>手机号快捷登录</span>
+          <span>账号密码快捷登录</span>
         </div>
         <div class="email_btn">
           <i class="iconfont icon-youxiang"></i>
@@ -51,9 +51,10 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-.container
+.profile_container
   width 100%
   height 100%
+  background-color #F2F5F4
   .header
     height 1.1733rem
     padding 0 .26667rem
@@ -73,8 +74,6 @@ export default {
       .icon-gouwuche2
         margin-left .2rem
   .login_content
-    background-color #F2F5F4
-    height 100%
     .loginWrap
       padding-top 2.13333rem
       padding-bottom 3.0933rem

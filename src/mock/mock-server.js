@@ -6,9 +6,10 @@ import dataNav from './datas/cateNavDatas.json'
 import policyDescList from './datas/index.json'
 import categoryHotSellModule from './datas/index.json'
 import flashSaleModule from './datas/index.json'
+import login from './datas/login.json'
 
 // 拦截地址,产生数据
-
+Mock.mock("/login",{code:0,data:login})
 Mock.mock("/tablist", { code: 0, data: data.kingKongModule });
 Mock.mock("/cagetorynav", { code: 0, data: dataNav.categoryL1List});
 Mock.mock("/policyDescList", { code: 0, data: policyDescList.policyDescList});

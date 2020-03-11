@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from './ajax.js'
+const BASE = "/api";
 export const reqTabList = () => {
     return axios({
       method: 'GET',
@@ -29,3 +30,23 @@ export const reqFlashSaleModule = () => {
     url: '/flashSaleModule',
   })
 }
+// 搜索
+export const reqSearchAutoComplete = (keywordPrefix) => {
+  return axios({
+    method: 'POST',
+    url: BASE +`/xhr/search/searchAutoComplete.json`,
+    data:{
+      keywordPrefix
+    }
+  })
+}
+
+//登录
+export const reqSmsLogin = (account, code) => axios({
+  method: "POST",
+  url: '/login',
+  data: {
+    account,
+    code
+  }
+})
